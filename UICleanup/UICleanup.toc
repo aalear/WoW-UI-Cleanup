@@ -4,4 +4,4 @@
 ## Author: aalear
 ## Version: 1.0
 
-CombatCleanup.lua
+UICleanup.lua
