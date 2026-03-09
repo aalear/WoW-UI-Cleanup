@@ -18,4 +18,12 @@ f:SetScript("OnEvent", function()
             self:Hide()
         end)
     end
+
+    -- Hide the self-highlight if "Find Your Self Anywhere" is enabled
+    hooksecurefunc("ToggleSelfHighlight", function() end)
+    C_Timer.After(1, function()
+        if GetCVarBool("findYourselfAnywhere") and ToggleSelfHighlight then
+            ToggleSelfHighlight()
+        end
+    end)
 end)
