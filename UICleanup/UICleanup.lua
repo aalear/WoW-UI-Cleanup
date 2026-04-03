@@ -31,7 +31,10 @@ local function IsCooldownViewerOwner(frame)
 end
 
 f:SetScript("OnEvent", function()
-   if PlayerFrame and
+    C_CVar.SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "1")
+    C_CVar.SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", "1")
+
+    if PlayerFrame and
       PlayerFrame.PlayerFrameContent and
       PlayerFrame.PlayerFrameContent.PlayerFrameContentMain and
       PlayerFrame.PlayerFrameContent.PlayerFrameContentMain.HitIndicator then
