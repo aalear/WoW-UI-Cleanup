@@ -34,6 +34,8 @@ f:SetScript("OnEvent", function()
     C_CVar.SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "1")
     C_CVar.SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", "1")
 
+    C_CVar.SetCVar("AutoPushSpellToActionBar", "0")
+
     if PlayerFrame and
       PlayerFrame.PlayerFrameContent and
       PlayerFrame.PlayerFrameContent.PlayerFrameContentMain and
