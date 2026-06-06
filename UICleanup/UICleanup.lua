@@ -31,6 +31,9 @@ local function IsCooldownViewerOwner(frame)
 end
 
 f:SetScript("OnEvent", function()
+    -- Adjust scale to counter 125% monitor scaling
+    UIParent:SetScale(0.64)
+
     C_CVar.SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "1")
     C_CVar.SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", "1")
 
