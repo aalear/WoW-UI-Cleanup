@@ -2,6 +2,6 @@
 ## Title: Combat Cleanup
 ## Notes: Fixes a few annoying UI things during combat in WoW
 ## Author: aalear
-## Version: 1.0
+## Version: 1.1
 
 UICleanup.lua
