@@ -39,6 +39,7 @@ f:SetScript("OnEvent", function()
 
     C_CVar.SetCVar("AutoPushSpellToActionBar", "0")
 
+    -- Hide the player hit indicator on the player unit frame if it exists
     if PlayerFrame and
       PlayerFrame.PlayerFrameContent and
       PlayerFrame.PlayerFrameContent.PlayerFrameContentMain and
@@ -49,6 +50,7 @@ f:SetScript("OnEvent", function()
         end)
     end
 
+    -- Hide the pet hit indicator on the pet unit frame if it exists
     if PetHitIndicator then
         PetHitIndicator:Hide()
         hooksecurefunc(PetHitIndicator, "Show", function(self)
@@ -64,6 +66,7 @@ f:SetScript("OnEvent", function()
         end
     end)
 
+    -- Anchor cooldown viewer tooltips to the cursor instead of the default position
     hooksecurefunc("GameTooltip_SetDefaultAnchor", function(tooltip, parent)
         if not tooltip then
             return
