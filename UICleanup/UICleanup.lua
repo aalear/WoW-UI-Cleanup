@@ -82,4 +82,19 @@ f:SetScript("OnEvent", function()
             tooltip:SetOwner(owner or parent or UIParent, "ANCHOR_CURSOR")
         end
     end)
+
+    -- Turn off combat animation in Trader's Tender vendor preview
+    EventUtil.ContinueOnAddOnLoaded("Blizzard_PerksProgram", function()
+        local toggle = PerksProgramFrame
+            and PerksProgramFrame.FooterFrame
+            and PerksProgramFrame.FooterFrame.ToggleAttackAnimation
+
+        if toggle then
+            hooksecurefunc(toggle, "SetChecked", function(self)
+                if self:GetChecked() then
+                    self:Click()
+                end
+            end)
+        end
+    end)
 end)
