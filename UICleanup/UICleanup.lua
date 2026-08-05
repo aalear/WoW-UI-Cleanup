@@ -30,6 +30,27 @@ local function IsCooldownViewerOwner(frame)
     return false
 end
 
+local function IsEnemyNameplateDebuff(frame)
+    if not frame or frame.isBuff ~= false then
+        return false
+    end
+
+    local current = frame:GetParent()
+    for _ = 1, 3 do
+        if not current then
+            return false
+        end
+
+        if current.IsFriend and current.unitToken then
+            return not current:IsFriend()
+        end
+
+        current = current.GetParent and current:GetParent() or nil
+    end
+
+    return false
+end
+
 local function HideEnemyDebuffDurations(nameplateAuras, listFrame)
     if not nameplateAuras.unitToken
         or nameplateAuras:IsFriend()
@@ -102,7 +123,7 @@ f:SetScript("OnEvent", function()
         end
 
         local owner = tooltip:GetOwner()
-        if IsCooldownViewerOwner(owner) then
+        if IsCooldownViewerOwner(owner) or IsEnemyNameplateDebuff(owner) then
             tooltip:SetOwner(owner or parent or UIParent, "ANCHOR_CURSOR")
         end
     end)

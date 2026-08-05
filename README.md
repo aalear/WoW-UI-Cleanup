@@ -9,4 +9,4 @@ This addon tweaks a few things I personally find wildly annoying about the (most
 - This is a "me" problem but my monitor is scaled to 125%, so this addon also sets the UI scale to 0.64 to compensate.
 - Newly learned spells aren't automatically added to action bars.
 - Combat animation is hidden by default when previewing items at the Trader's Tender vendor.
-- Enemy debuff duration is hidden on enemy nameplates (icons and stacks are still shown).
+- Enemy debuff duration is hidden on enemy nameplates (icons and stacks are still shown) and tooltips are anchored to the debuff icons.
