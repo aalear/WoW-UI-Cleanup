@@ -30,6 +30,28 @@ local function IsCooldownViewerOwner(frame)
     return false
 end
 
+local function HideEnemyDebuffDurations(nameplateAuras, listFrame)
+    if not nameplateAuras.unitToken
+        or nameplateAuras:IsFriend()
+        or listFrame ~= nameplateAuras.DebuffListFrame then
+        return
+    end
+
+    for _, auraItemFrame in ipairs({ listFrame:GetChildren() }) do
+        if auraItemFrame.Cooldown then
+            auraItemFrame.Cooldown:SetHideCountdownNumbers(true)
+        end
+    end
+end
+
+local function HookNameplateAuras()
+    if not NamePlateAurasMixin then
+        return
+    end
+
+    hooksecurefunc(NamePlateAurasMixin, "RefreshList", HideEnemyDebuffDurations)
+end
+
 f:SetScript("OnEvent", function()
     -- Adjust scale to counter 125% monitor scaling
     UIParent:SetScale(0.64)
@@ -39,6 +61,8 @@ f:SetScript("OnEvent", function()
     C_CVar.SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", "1")
 
     C_CVar.SetCVar("AutoPushSpellToActionBar", "0")
+
+    EventUtil.ContinueOnAddOnLoaded("Blizzard_NamePlates", HookNameplateAuras)
 
     -- Hide the player hit indicator on the player unit frame if it exists
     if PlayerFrame and
