@@ -1,7 +1,7 @@
-## Interface: 120001
-## Title: Combat Cleanup
+## Interface: 120100
+## Title: UI Cleanup
 ## Notes: Fixes a few annoying UI things during combat in WoW
 ## Author: aalear
-## Version: 1.1
+## Version: 1.2
 
 UICleanup.lua
