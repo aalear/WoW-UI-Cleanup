@@ -63,9 +63,6 @@ f:SetScript("OnEvent", function()
     UIParent:SetScale(0.64)
 
     C_CVar.SetCVar("alwaysCompareItems", "0")
-    C_CVar.SetCVar("nameplateShowOnlyNameForFriendlyPlayerUnits", "1")
-    C_CVar.SetCVar("nameplateUseClassColorForFriendlyPlayerUnitNames", "1")
-
     C_CVar.SetCVar("AutoPushSpellToActionBar", "0")
 
     EventUtil.ContinueOnAddOnLoaded("Blizzard_NamePlates", HookNameplateAuras)
