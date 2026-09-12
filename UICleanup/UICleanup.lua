@@ -36,7 +36,30 @@ local function IsEnemyNameplateDebuff(frame)
     return frame and enemyNameplateDebuffFrames[frame]
 end
 
+local function EnsurePoolHooked(nameplateAuras)
+    if nameplateAuras._poolHooked or not nameplateAuras.auraItemFramePool then
+        return
+    end
+    nameplateAuras._poolHooked = true
+
+    hooksecurefunc(nameplateAuras.auraItemFramePool, "Release", function(pool, frame)
+        if frame
+            and frame.Cooldown
+            and nameplateAuras.unitToken
+            and not nameplateAuras:IsForbidden()
+            and not nameplateAuras:IsFriend() then
+            frame.Cooldown:SetHideCountdownNumbers(true)
+        end
+    end)
+end
+
 local function HideEnemyDebuffDurations(nameplateAuras, listFrame)
+    EnsurePoolHooked(nameplateAuras)
+
+    if listFrame:IsForbidden() then
+        return
+    end
+
     local isEnemyDebuffList = nameplateAuras.unitToken
         and not nameplateAuras:IsFriend()
         and listFrame == nameplateAuras.DebuffListFrame
