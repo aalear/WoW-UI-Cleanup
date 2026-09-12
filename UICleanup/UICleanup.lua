@@ -147,4 +147,62 @@ f:SetScript("OnEvent", function()
             end)
         end
     end)
+
+    -- Show the inspected player's average item level on the inspect frame
+    EventUtil.ContinueOnAddOnLoaded("Blizzard_InspectUI", function()
+        if not InspectFrame then
+            return
+        end
+
+        inspectIlvlHolder = CreateFrame("Frame", nil, InspectModelFrame)
+        inspectIlvlHolder:SetFrameStrata("TOOLTIP")
+        inspectIlvlHolder:SetAllPoints(InspectModelFrame)
+
+        inspectIlvlLabel = inspectIlvlHolder:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+        inspectIlvlLabel:SetPoint("TOP", InspectModelFrame, "TOP", 0, -4)
+        inspectIlvlLabel:Hide()
+    end)
+
+    local function GetAverageQuality(unit)
+        local qSum, qCount = 0, 0
+
+        for slotId = 1, 17 do
+            if slotId ~= 4 then
+                local link = GetInventoryItemLink(unit, slotId)
+                if link then
+                    local item = Item:CreateFromItemLink(link)
+                    local quality = item:GetItemQuality()
+                    if quality == Enum.ItemQuality.Heirloom then
+                        quality = Enum.ItemQuality.Rare
+                    end
+                    qSum = qSum + (quality or 0)
+                    qCount = qCount + 1
+                end
+            end
+        end
+
+        if qCount == 0 then
+            return Enum.ItemQuality.Poor
+        end
+
+        return floor(qSum / qCount + 0.5)
+    end
+
+    inspectReadyFrame = CreateFrame("Frame")
+    inspectReadyFrame:RegisterEvent("INSPECT_READY")
+    inspectReadyFrame:SetScript("OnEvent", function()
+        if not inspectIlvlLabel or not InspectFrame then
+            return
+        end
+
+        local unit = InspectFrame.unit or "target"
+        local ilvl = C_PaperDollInfo.GetInspectItemLevel(unit)
+        if not ilvl then
+            return
+        end
+
+        local quality = GetAverageQuality(unit)
+        inspectIlvlLabel:SetText(format("|cnIQ%d:%d|r", quality, ilvl))
+        inspectIlvlLabel:Show()
+    end)
 end)
